@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>テンプレート</title>
+<link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+<header>
+<div class="container">
+<h1>30Week-JavaScript Lesson</h1>
+<h2>ゴンガミ ユウスケ</h2>
+</div><!-- /.container -->
+</header>
+<main>
+<div class="container">
+<section>
+<h1>双六ゲーム</h1>
+</section>
+</div><!-- /.container -->
+</main>
+<footer>
+<div class="container">
+<p>BLUE LAMP</p>
+</div><!-- /.container -->
+</footer>
+<script>
+  //ここにJSコードを書いていきます
+  'use strict'
+  //変数を指定(サイコロ、進んだ目の合計)
+  let dice;
+  let total = 0;
+  //for文で条件指定
+  for(let i = 1; i<20; i++){
+  if(total>=10){
+    console.log('ゴールしました!');
+   break; 
+  }
+  //サイコロの目をランダムで1~6で返す
+  dice = Math.floor(Math.random()*6-1)+2;
+  console.log(i+'回目の目は'+dice);
+
+  
+　//進んだ目の合計を返す
+  total =total + dice;
+  console.log('進んだ目の合計'+total);
+
+  //イベントを2個程導入する
+  if(total ==5){
+    console.log('1マス進む!');
+    total = total + 1
+    console.log('現在の目の合計'+total);
+  }
+
+  if(total ==9){
+    console.log('スタートにもどる!');
+    total = total - 9
+    
+  }
+  //1ターン経過するごとに状況をコンソールに残す。(ますが10以上になるとおかしいのでますの合計が10になった時点で定数10で固定させる。)
+  if(total>10){
+    console.log('現在の状況:'+i+'ターン目'+'現在のマス 10');
+  }
+  if(total<10){
+    console.log('現在の状況:'+i+'ターン目'+'現在のマス'+total);
+  }
+
+  
+
+  }
+</script>
+</body>
+</html>
