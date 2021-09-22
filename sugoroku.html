@@ -20,7 +20,11 @@
 <h1>双六ゲーム</h1>
 <h1>------------------------------</h1>
 
-<h3>ここに最新の進行状況が表示されます</h3>
+<!--サイコロをふるボタンを作る-->
+<button id="test">運命のダイスロール!!</button>
+<div id="roll"></div>
+
+<h3>ここに対戦結果が表示されます</h3>
 
 <p id='goal'></p>
 
@@ -39,66 +43,144 @@
 <script>
   //ここにJSコードを書いていきます
   'use strict'
-  //変数を指定(サイコロ、進んだ目の合計)
-  let dice;
-  let total = 0;
-  //for文で条件指定
+  //変数を指定(サイコロ、進んだ目の合計=math,CPUは目視しやすいように変数別途用意)
+  let dice =0;
+  let math = 0;
+  let cpu_dice =0;
+  let cpu_math =0;
+
+  
+  //for文で条件指定　ゴール順でbreak条件指定
   for(let i = 1; i<20; i++){
-  if(total>=10){
-    console.log('ゴールしました!');
-    document.write('ゴールしました!');
+  if(math>=10){
+    console.log('あなたが先にゴールしました!');
+    //document.write('あなたが先にゴールしました!');
+    break; }
+  if(cpu_math>=10){
+    console.log('CPUが先にゴールしました!');
+    //document.write('CPUが先にゴールしました!');
     
-   break; 
+  break; 
   }
+  
+  
+
+
+
   //サイコロの目をランダムで1~6で返す
   //6-3ブラウザに表示
   dice = Math.floor(Math.random()*6-1)+2;
-  console.log(i+'回目の目は'+dice);
-  document.write(i+'回目の目は'+dice+'<br>')
-  document.getElementById('dice').textContent =i+'回目の目は'+dice;
+  console.log('あなたの'+i+'回目の目は'+dice);
+  //document.write(i+'回目の目は'+dice+'<br>')
+  //document.getElementById('dice').textContent =i+'回目の目は'+dice;
+
+
+  //CPU実装(6-5)
+  cpu_dice = Math.floor(Math.random()*6-1)+2;
+  console.log('CPUの'+i+'回目の目は'+cpu_dice);
+  //document.write('CPUの'+i+'回目の目は'+dice+'<br>')
+  //document.getElementById('dice').textContent ='CPUの'+i+'回目の目は'+dice;
+
 
   
 　//進んだ目の合計を返す
   //6-3ブラウザに表示
-  total =total + dice;
-  console.log('進んだ目の合計'+total);
-  document.write('進んだ目の合計'+total+'<br>')
+  math =math + dice;
+  console.log('あなたの進んだ目の合計'+math);
+  //document.write('あなたの進んだ目の合計'+total+'<br>')
+
+  //進んだ目の合計を返す(CPU)
+  cpu_math =cpu_math + cpu_dice;
+  console.log('CPUの進んだ目の合計'+cpu_math);
+  //document.write('CPUの進んだ目の合計'+total+'<br>')
+
+
 
   //イベントを2個程導入する
   //6-3ブラウザに表示
-  if(total ==5){
-    console.log('1マス進む!');
-    document.write('5マス目に止まった!進むスピードが上がった!1マス進む!<br>')
-    total = total + 1
-    console.log('現在の目の合計'+total);
-    document.write('現在の目の合計'+total+'<br>')
+  if(math ==5){
+    console.log('あなたは1マス進む!');
+    //document.write('あなたは5マス目に止まった!あなたの進むスピードが上がった!あなたは1マス進む!<br>')
+    math = math + 1
+    console.log('あなたの現在の目の合計'+math);
+    //document.write('あなたの現在の目の合計'+math+'<br>')
   }
 
-  if(total ==9){
-    console.log('スタートにもどる!');
-    document.write('落とし穴に落ちてしまった!スタートに戻る…<br>')
-    total = total - 9
+  if(cpu_math ==5){
+    console.log('CPUは1マス進む!');
+    //document.write('CPUは5マス目に止まった!CPUの進むスピードが上がった!CPUは1マス進む!<br>')
+   cpu_math = cpu_math + 1
+    console.log('現在の目の合計'+cpu_math);
+    //document.write('CPUの現在の目の合計'+cpu_math+'<br>')
+  }
+
+  if(math ==9){
+    console.log('あなたはスタートにもどる!');
+    //document.write('あなたは落とし穴に落ちてしまった!スタートに戻る…<br>')
+    math = math - 9
+    
+  }
+
+  if(cpu_math ==9){
+    console.log('CPUはスタートにもどる!');
+    //document.write('CPUは落とし穴に落ちてしまった!スタートに戻る…<br>')
+    cpu_math = cpu_math - 9
     
   }
   //1ターン経過するごとに状況をコンソールに残す。(ますが10以上になるとおかしいのでますの合計が10になった時点で定数10で固定させる。)
   //6-3でブラウザ上に表示させる。
-  if(total>10){
-    console.log('現在の状況:'+i+'ターン目'+'現在のマス 10');
-    document.write('現在の状況:'+i+'ターン目'+'現在のマス 10<br><br>');
+  if(math>10){
+    console.log('あなたの現在の状況:'+i+'ターン目'+'現在のマス 10');
+    //document.write('あなたの現在の状況:'+i+'ターン目'+'現在のマス 10<br><br>');
   }
-  if(total<10){
-    console.log('現在の状況:'+i+'ターン目'+'現在のマス'+total);
-    document.write('現在の状況:'+i+'ターン目'+'現在のマス'+total+'<br><br>');
+  if(math<10){
+    console.log('あなたの現在の状況:'+i+'ターン目'+'現在のマス'+math);
+    //document.write('あなたの現在の状況:'+i+'ターン目'+'現在のマス'+math+'<br><br>');
   }
 
+  if(cpu_math>10){
+    console.log('CPUの現在の状況:'+i+'ターン目'+'現在のマス 10');
+    //document.write('CPUの現在の状況:'+i+'ターン目'+'現在のマス 10<br><br>');
+  }
+
+  if(cpu_math<10){
+    console.log('CPUの現在の状況:'+i+'ターン目'+'現在のマス'+cpu_math);
+    //document.write('CPUの現在の状況:'+i+'ターン目'+'現在のマス'+cpu_math+'<br><br>');
+  }
 
   //ゴール時のメッセージ(おまけあり)
-  if(total>10){
+  //ボタンを押して行動が表示されるよう指定
+  
+
+  document.getElementById('test').addEventListener('click',function() {
+    document.getElementById('roll').textContent = i+'回目の目は'+dice;
+  });
+
+  document.getElementById('test').addEventListener('click',function() {
+    if(math>10){
   document.getElementById('goal').textContent ='おめでとうございます!あなたは'+i+'ターンでゴールしました!';
   }
-  if(total==10){
+  });
+
+  document.getElementById('test').addEventListener('click',function() {
+    if(math==10){
     document.getElementById('goal').textContent ='おめでとうございます!あなたは'+i+'ターンでゴールしました!'+'さらにピタリ賞として賞金100万円を獲得しました!!';  
+    }
+  });
+  //CPUが先に上がると敗北する
+  document.getElementById('test').addEventListener('click',function() {
+    if(cpu_math>=10&&math<10){
+  document.getElementById('goal').textContent ='残念!CPUが先にゴールしたのであなたの負けです…';
   }
+  });
+
+  //暫定処理　先攻後攻が実装されていないので、双方iターン目で10に到達したら引き分け扱いとする
+  document.getElementById('test').addEventListener('click',function() {
+    if(cpu_math>=10&&math>=10){
+  document.getElementById('goal').textContent ='どちらも同時にゴールしたのでこの勝負は引き分けです!!';
+  }
+  });
+  
 
   }
 </script>
